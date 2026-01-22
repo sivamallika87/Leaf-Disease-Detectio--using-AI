@@ -1,0 +1,2 @@
+Disease: Powdery Mildew
+Confidence: 0.92
