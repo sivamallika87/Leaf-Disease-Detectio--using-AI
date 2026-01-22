@@ -20,4 +20,5 @@ def predict_disease(img_path):
 
 result = predict_disease("sample_leaf.jpg")
 print("Disease:", result[0])
-print("Confidence:", result[1])
+
+print("Confidence:", round(result[1],2))
