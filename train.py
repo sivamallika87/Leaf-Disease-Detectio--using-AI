@@ -37,4 +37,6 @@ model.compile(
 )
 
 model.fit(train_data, epochs=10)
+
 model.save("model.h5")
+print("Model saved as model.h5")
