@@ -1,10 +1,9 @@
-import tensorflow as tf
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-img_size = 224
-batch_size = 32
+img_size = 64
+batch_size = 8
 
 train_gen = ImageDataGenerator(
     rescale=1./255,
@@ -21,12 +20,14 @@ train_data = train_gen.flow_from_directory(
 )
 
 model = Sequential([
-    Conv2D(32, (3,3), activation='relu', input_shape=(img_size, img_size, 3)),
-    MaxPooling2D(),
-    Conv2D(64, (3,3), activation='relu'),
-    MaxPooling2D(),
+    Conv2D(16, (3,3), activation='relu', input_shape=(img_size, img_size, 3)),
+    MaxPooling2D(2,2),
+
+    Conv2D(32, (3,3), activation='relu'),
+    MaxPooling2D(2,2),
+
     Flatten(),
-    Dense(128, activation='relu'),
+    Dense(64, activation='relu'),
     Dense(train_data.num_classes, activation='softmax')
 ])
 
@@ -38,5 +39,6 @@ model.compile(
 
 model.fit(train_data, epochs=10)
 
-model.save("model.h5")
-print("Model saved as model.h5")
+model.save("model.keras", save_format="keras")
+print("Small model saved as model.keras")
+
